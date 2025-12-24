@@ -131,7 +131,7 @@ const HotKey: React.FC<HotKeyProps> = ({
     const finalSecondaryFontSize = secondaryFontSize || sizeStyle.fontSize;
 
     // Font weight mapping
-    const getFontWeight = (weight: 'normal' | 'medium' | 'semibold' | 'bold' | number) => {
+    const getFontWeight = (weight: 'thin' | 'normal' | 'medium' | 'semibold' | 'bold' | number) => {
         if (typeof weight === 'number') return weight;
         const weights = {
             thin: 300,
