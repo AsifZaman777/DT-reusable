@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 /*
 Properties:
@@ -21,6 +21,7 @@ Properties:
 - margin?: string - The margin outside the hotkey.
 - onClick?: () => void - The click event handler for the hotkey.
 - disabled?: boolean - Whether the hotkey is disabled.
+- keys?: string[] - Array of keys for keyboard shortcut (e.g., ['Ctrl', 'Shift', 'D'] or ['F2']).
 - hoverBgColor?: string - The background color on hover.
 - hoverPrimaryTextColor?: string - The primary text color on hover.
 - hoverSecondaryTextColor?: string - The secondary text color on hover.
@@ -59,6 +60,7 @@ interface HotKeyProps {
     // functionality
     onClick?: () => void;
     disabled?: boolean;
+    keys?: string[];
 
     // hover effects
     hoverBgColor?: string;
@@ -78,10 +80,10 @@ const HotKey: React.FC<HotKeyProps> = ({
     secondaryText,
     primaryTextWeight = 'medium',
     primaryTextColor = 'black',
-    primaryFontSize,
+    primaryFontSize = '12px',
     secondaryTextWeight = 'thin',
     secondaryTextColor = 'black',
-    secondaryFontSize,
+    secondaryFontSize = '12px',
     bgColor = '#3b82f6',
     width = '255px',
     height = '36px',
@@ -91,6 +93,7 @@ const HotKey: React.FC<HotKeyProps> = ({
     margin = '0',
     onClick,
     disabled = false,
+    keys,
     hoverBgColor,
     hoverPrimaryTextColor,
     hoverSecondaryTextColor,
@@ -176,6 +179,58 @@ const HotKey: React.FC<HotKeyProps> = ({
         marginLeft: 'auto',
         transition: 'color 0.3s ease',
     };
+
+    // Keyboard shortcut handler
+    useEffect(() => {
+        if (!onClick || disabled || !keys || keys.length === 0) return;
+
+        const handleKeyPress = (e: KeyboardEvent) => {
+            // Normalize keys to lowercase for comparison
+            const normalizedKeys = keys.map(k => k.toLowerCase().trim());
+
+            // Check for modifier keys
+            const hasCtrl = normalizedKeys.includes('ctrl') || normalizedKeys.includes('control');
+            const hasAlt = normalizedKeys.includes('alt');
+            const hasShift = normalizedKeys.includes('shift');
+            const hasMeta = normalizedKeys.includes('meta') || normalizedKeys.includes('cmd') || normalizedKeys.includes('win');
+
+            // Get the main key (non-modifier)
+            const mainKey = normalizedKeys.find(k =>
+                !['ctrl', 'control', 'alt', 'shift', 'meta', 'cmd', 'win'].includes(k)
+            );
+
+            // Check if pressed modifiers match
+            const modifiersMatch =
+                e.ctrlKey === hasCtrl &&
+                e.altKey === hasAlt &&
+                e.shiftKey === hasShift &&
+                e.metaKey === hasMeta;
+
+            // Check if main key matches
+            let keyMatches = false;
+            if (mainKey) {
+                keyMatches =
+                    e.key.toLowerCase() === mainKey ||
+                    e.code.toLowerCase() === mainKey ||
+                    e.code.toLowerCase() === `key${mainKey}` ||
+                    (mainKey.startsWith('f') && e.key.toLowerCase() === mainKey); // Function keys
+            } else {
+                // If only modifiers are specified, match on those
+                keyMatches = true;
+            }
+
+            if (modifiersMatch && keyMatches) {
+                e.preventDefault();
+                onClick();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [keys, onClick, disabled]);
 
     const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!disabled && hoverBgColor) {
