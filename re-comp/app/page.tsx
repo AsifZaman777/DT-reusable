@@ -2,12 +2,14 @@
 import Image from "next/image";
 import Button from "./components/button";
 import HotKey from "./components/hotKey";
+import Dropdown from "./components/dropdown";
 
 
 //icons
 import timeAndSales from "../public/deliverables/dt/table/table_menu/time_and_sales.svg";
 import Buy from "../public/deliverables/dt/table/table_menu/buy.svg";
 import Sell from "../public/deliverables/dt/table/table_menu/sell.svg";
+import WitchList from "../public/deliverables/dt/tab_menu/watch_list/watch_list.svg";
 
 export default function HomePage() {
   return (
@@ -41,7 +43,7 @@ export default function HomePage() {
         <Button
           text="Reset"
           fontSize="12px"
-          width="120px"
+          width="220px"
           height="24px"
           alignment="center"
           borderRadius="5px"
@@ -51,7 +53,80 @@ export default function HomePage() {
         />
       </div>
 
+      <div className="m-2 flex flex-col gap-4">
+        <h1 className="text-2xl font-bold">Dropdown</h1>
+        <Dropdown
+          label="Options"
+          icon=""
+          bgColor="#DBEBFF"
+          itemBg="#DBEBFF"
+          fontSize="12px"
+          width="220px"
+          height="38px"
+          items={[
+            { asif: '1', zaman: 'Time & Sales', icon: <Image src={timeAndSales} alt="t&s" width={12} height={12} /> },
+            { asif: '2', zaman: 'Buy', icon: <Image src={Buy} alt="buy" width={12} height={12} /> },
+            { asif: '3', zaman: 'Sell', icon: <Image src={Sell} alt="sell" width={12} height={12} /> },
+          ]}
+          itemKey="asif"
+          itemLabel="zaman"
+          onSelect={(it) => alert(`Selected: ${it.asif} ${it.zaman}`)}
+        />
 
+        <Dropdown
+          label="Options"
+          icon=""
+          bgColor="transparent"
+          itemBg="transparent"
+          fontSize="12px"
+          width="220px"
+          height="38px"
+          items={[
+            { asif: '1', zaman: 'Time & Sales', icon: <Image src={timeAndSales} alt="t&s" width={12} height={12} /> },
+            { asif: '2', zaman: 'Buy', icon: <Image src={Buy} alt="buy" width={12} height={12} /> },
+            { asif: '3', zaman: 'Sell', icon: <Image src={Sell} alt="sell" width={12} height={12} /> },
+          ]}
+          itemKey="asif"
+          itemLabel="zaman"
+          onSelect={(it) => alert(`Selected: ${it.asif} ${it.zaman}`)}
+        />
+
+        <Dropdown
+          label="Favorite List"
+          icon={<Image src={WitchList} alt="time and sales" width={12} height={12} />}
+          bgColor="#DBEBFF"
+          itemBg="#DBEBFF"
+          fontSize="12px"
+          width="220px"
+          height="38px"
+          items={[
+            { asif: '1', zaman: 'Time & Sales', icon: <Image src={timeAndSales} alt="t&s" width={12} height={12} /> },
+            { asif: '2', zaman: 'Buy', icon: <Image src={Buy} alt="buy" width={12} height={12} /> },
+            { asif: '3', zaman: 'Sell', icon: <Image src={Sell} alt="sell" width={12} height={12} /> },
+          ]}
+          itemKey="asif"
+          itemLabel="zaman"
+          onSelect={(it) => alert(`Selected: ${it.asif} ${it.zaman}`)}
+        />
+
+        <Dropdown
+          label="Favorite List"
+          icon={<Image src={WitchList} alt="time and sales" width={12} height={12} />}
+          bgColor="transparent"
+          itemBg="transparent"
+          fontSize="12px"
+          width="220px"
+          height="38px"
+          items={[
+            { asif: '1', zaman: 'Time & Sales', icon: <Image src={timeAndSales} alt="t&s" width={12} height={12} /> },
+            { asif: '2', zaman: 'Buy', icon: <Image src={Buy} alt="buy" width={12} height={12} /> },
+            { asif: '3', zaman: 'Sell', icon: <Image src={Sell} alt="sell" width={12} height={12} /> },
+          ]}
+          itemKey="asif"
+          itemLabel="zaman"
+          onSelect={(it) => alert(`Selected: ${it.asif} ${it.zaman}`)}
+        />
+      </div>
       <div className="m-2 flex flex-col gap-4">
         <h1 className="text-2xl font-bold">Buttons</h1>
         <Button

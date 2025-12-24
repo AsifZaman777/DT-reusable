@@ -64,6 +64,8 @@ interface ButtonProps {
     // icons
     icon?: React.ReactNode;
     iconPosition?: 'left' | 'right';
+    // trailing node to render after text (e.g. caret)
+    trailing?: React.ReactNode;
 
 
     // additional styling
@@ -95,6 +97,7 @@ const Button: React.FC<ButtonProps> = ({
     iconPosition = 'left',
     variant = 'primary',
     size = 'md',
+    trailing,
 }) => {
     // Size presets
     const sizeStyles = {
@@ -156,7 +159,7 @@ const Button: React.FC<ButtonProps> = ({
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: alignmentStyles[alignment],
-        gap: icon ? '8px' : '0',
+        gap: (icon || trailing) ? '8px' : '0',
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.6 : 1,
         transition: 'all 0.3s ease',
@@ -193,6 +196,7 @@ const Button: React.FC<ButtonProps> = ({
             {icon && iconPosition === 'left' && <span>{icon}</span>}
             <span>{text}</span>
             {icon && iconPosition === 'right' && <span>{icon}</span>}
+            {trailing && <span style={{ display: 'inline-flex', alignItems: 'center', marginLeft: 8 }}>{trailing}</span>}
         </button>
     );
 };
