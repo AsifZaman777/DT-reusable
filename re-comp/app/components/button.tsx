@@ -33,7 +33,7 @@ Properties:
 
 interface ButtonProps {
     //text props
-    text: string;
+    text?: string;
     textWeight?: 'normal' | 'medium' | 'semibold' | 'bold' | number;
     textColor?: string;
     fontSize?: string;

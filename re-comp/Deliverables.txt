@@ -1,0 +1,8 @@
+- Button - Asif (Done)
+- Dropdown - Robin (CR)
+- Hot keys - Asif (Done)
+- Search - Robin (Pend)
+- Tab wrapper (ShadCN) - Robin (Pend)
+- input - Robin (Pend)
+- market ticker - Asif (Pend)
+- Market summary (Box) - Asif (Pend)

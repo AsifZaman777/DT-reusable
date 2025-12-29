@@ -165,6 +165,16 @@ export default function HomePage() {
           onClick={() => alert("Reset clicked!")}
         />
 
+         <Button
+          icon={<Image src={Buy} alt="time and sales" width={12} height={12} />}
+          width="36px"
+          height="36px"
+          alignment="center"
+          borderRadius="6px"
+          bgColor="#FFFFFF"
+          onClick={() => alert("Reset clicked!")}
+        />
+
 
       </div>
 
