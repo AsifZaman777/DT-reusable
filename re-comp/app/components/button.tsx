@@ -159,7 +159,7 @@ const Button: React.FC<ButtonProps> = ({
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: alignmentStyles[alignment],
-        gap: (icon || trailing) ? '8px' : '0',
+        gap: (icon || trailing) && text ? '8px' : '0',
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.6 : 1,
         transition: 'all 0.3s ease',
@@ -193,8 +193,8 @@ const Button: React.FC<ButtonProps> = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {icon && iconPosition === 'left' && <span>{icon}</span>}
-            <span>{text}</span>
+            {icon && iconPosition === 'left' && <span >{icon}</span>}
+            {text && <span>{text}</span>}
             {icon && iconPosition === 'right' && <span>{icon}</span>}
             {trailing && <span style={{ display: 'inline-flex', alignItems: 'center', marginLeft: 8 }}>{trailing}</span>}
         </button>

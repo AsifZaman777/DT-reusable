@@ -1,4 +1,5 @@
 'use client';
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "./components/button";
 import HotKey from "./components/hotKey";
@@ -10,8 +11,23 @@ import timeAndSales from "../public/deliverables/dt/table/table_menu/time_and_sa
 import Buy from "../public/deliverables/dt/table/table_menu/buy.svg";
 import Sell from "../public/deliverables/dt/table/table_menu/sell.svg";
 import WitchList from "../public/deliverables/dt/tab_menu/watch_list/watch_list.svg";
+import DarkModeIcon from "../public/deliverables/web_application/settings_options/dark_mode.svg";
+import LightModeIcon from "../public/deliverables/web_application/settings_options/light_mode.svg";
 
 export default function HomePage() {
+
+  //hooks
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+  }, [isDarkMode]);
+
   return (
     <main className="m-2 flex gap-5">
       <div className="m-2 flex flex-col gap-4">
@@ -165,14 +181,20 @@ export default function HomePage() {
           onClick={() => alert("Reset clicked!")}
         />
 
-         <Button
-          icon={<Image src={Buy} alt="time and sales" width={12} height={12} />}
+        <Button
+          icon={
+            <Image src={isDarkMode ? LightModeIcon : DarkModeIcon} alt="mode" width={20} height={20} />
+          }
+          iconPosition="left"
           width="36px"
           height="36px"
+          padding="0px"
           alignment="center"
           borderRadius="6px"
           bgColor="#FFFFFF"
-          onClick={() => alert("Reset clicked!")}
+          onClick={() =>
+            setIsDarkMode(!isDarkMode)
+          }
         />
 
 
